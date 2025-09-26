@@ -40,6 +40,14 @@ restart() {
 }
 EOF
 
+
+#创建容器openrc需要的文件夹
+ mkdir /run/openrc
+ 
+ #创建需要的文件
+ touch /run/openrc/softlevel
+
+
 # 添加执行权限
 chmod +x /etc/init.d/XrayR
 
