@@ -4,13 +4,13 @@ apk update
 # 安装依赖项
 apk add wget unzip openrc
 # 下载 XrayR
-wget https://github.com/XrayR-project/XrayR/releases/download/v0.9.0/XrayR-linux-64.zip
+wget https://github.com/XrayR-project/XrayR/releases/download/v0.9.4/XrayR-linux-64.zip
 # 解压缩
-unzip XrayR-linux-64.zip -d /etc/XrayR
+unzip XrayR-linux-64.zip -d /home
 # 添加执行权限
-chmod +x /etc/XrayR/XrayR
+chmod +x /home/XrayR
 # 创建软链接
-ln -s /etc/XrayR/XrayR /usr/bin/XrayR
+ln -s /home/XrayR /usr/bin/XrayR
 # 创建 XrayR 服务文件
 cat > /etc/init.d/XrayR <<EOF
 #!/sbin/openrc-run
@@ -21,7 +21,7 @@ depend() {
 
 start() {
     ebegin "Starting XrayR"
-    start-stop-daemon --start --exec /usr/bin/XrayR -- -config /etc/XrayR/config.yml
+    start-stop-daemon --start --exec /usr/bin/XrayR -- --config /home/config.yml
     eend $?
 }
 
@@ -35,7 +35,7 @@ restart() {
     ebegin "Restarting XrayR"
     start-stop-daemon --stop --exec /usr/bin/XrayR
     sleep 1
-    start-stop-daemon --start --exec /usr/bin/XrayR -- -config /etc/XrayR/config.yml
+    start-stop-daemon --start --exec /usr/bin/XrayR -- --config /home/config.yml
     eend $?
 }
 EOF
